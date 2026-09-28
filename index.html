@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>Geometria Analítica — Treino</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="session-header">
+    <div class="session-brand">
+      <span class="brand-mark" aria-hidden="true">GA</span>
+      <div>
+        <strong>Geometria Analítica</strong>
+        <span id="question-source">—</span>
+      </div>
+    </div>
+
+    <div class="session-header-center">
+      <div class="session-context">
+        <span id="question-status">não tentada</span>
+        <span aria-hidden="true">·</span>
+        <span id="countdown">—</span>
+      </div>
+      <div class="session-progress-track" aria-label="Progresso da lista">
+        <i id="session-progress"></i>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button id="mode-toggle" class="icon-text-button" type="button" aria-pressed="false">
+        <span class="mode-dot" aria-hidden="true"></span><span id="mode-label">Estudo</span>
+      </button>
+      <button id="open-queue" class="icon-button" type="button" aria-label="Abrir fila de exercícios">☰</button>
+    </div>
+  </header>
+
+  <main class="training-shell">
+    <section class="question-focus" aria-labelledby="question-title">
+      <div class="question-eyebrow">
+        <span id="question-topic">—</span>
+        <span id="source-page">—</span>
+      </div>
+      <h1 id="question-title">Questão</h1>
+      <p id="question-statement">Carregando…</p>
+      <a id="source-link" class="source-link" target="_blank" rel="noopener">abrir página da fonte ↗</a>
+    </section>
+
+    <section id="study-stage" class="study-stage" aria-label="Resolução guiada">
+      <nav id="step-tabs" class="step-tabs" aria-label="Etapas da resolução">
+        <button type="button" data-step="0" class="active"><span>01</span>DADOS</button>
+        <button type="button" data-step="1"><span>02</span>ALVO</button>
+        <button type="button" data-step="2"><span>03</span>FERRAMENTA</button>
+        <button type="button" data-step="3"><span>04</span>LEDGER</button>
+      </nav>
+
+      <div class="stage-viewport">
+        <section id="stage-dados" class="stage-panel active" data-stage="0">
+          <p class="stage-kicker">01 · DADOS</p>
+          <h2>O que o enunciado fornece?</h2>
+          <p class="stage-help">Registre apenas informações dadas ou resultados que já foram demonstrados.</p>
+          <textarea id="dados-input" rows="7" placeholder="Ex.: A = (2, 1) e B = (6, −1)"></textarea>
+        </section>
+
+        <section id="stage-alvo" class="stage-panel" data-stage="1" hidden>
+          <p class="stage-kicker">02 · ALVO</p>
+          <h2>O que exatamente precisamos descobrir?</h2>
+          <p class="stage-help">Escreva o pedido da questão sem antecipar a solução.</p>
+          <textarea id="alvo-input" rows="7" placeholder="Ex.: encontrar a equação da reta AB"></textarea>
+        </section>
+
+        <section id="stage-ferramenta" class="stage-panel" data-stage="2" hidden>
+          <p class="stage-kicker">03 · FERRAMENTA</p>
+          <h2>Qual conceito conecta os dados ao alvo?</h2>
+          <p class="stage-help">Escolha a ideia matemática antes de fazer a álgebra.</p>
+          <textarea id="ferramenta-input" rows="7" placeholder="Ex.: coeficiente angular + equação ponto-inclinação"></textarea>
+        </section>
+
+        <section id="stage-ledger" class="stage-panel ledger-stage" data-stage="3" hidden>
+          <div class="ledger-heading">
+            <div>
+              <p class="stage-kicker">04 · LEDGER</p>
+              <h2>Só use o que já foi calculado.</h2>
+            </div>
+            <span id="ledger-count" class="counter-chip">0 itens</span>
+          </div>
+          <ol id="ledger-list" class="ledger-list"></ol>
+          <div class="ledger-entry">
+            <input id="ledger-input" type="text" autocomplete="off" placeholder="Ex.: Δx_AB = 4">
+            <button id="ledger-add" class="primary-action" type="button">Registrar</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="step-navigation">
+        <button id="previous-step" class="quiet-action" type="button">← voltar</button>
+        <span id="step-indicator">1 / 4</span>
+        <button id="next-step" class="primary-action" type="button">continuar →</button>
+      </div>
+    </section>
+
+    <section id="hint-panel" class="inline-feedback" hidden data-exam-help aria-live="polite"></section>
+
+    <section id="answer-panel" class="answer-sheet" hidden aria-live="polite">
+      <p class="stage-kicker">GABARITO DA FONTE</p>
+      <div id="answer-content"></div>
+      <p id="answer-note" class="source-warning" hidden></p>
+      <div class="grade-row">
+        <button id="grade-wrong" class="grade-action wrong" type="button">Errei</button>
+        <button id="grade-correct" class="grade-action correct" type="button">Acertei</button>
+      </div>
+      <form id="error-form" class="error-form" hidden>
+        <label>Tipo do erro
+          <select id="error-type" required>
+            <option value="">Escolha…</option>
+            <option value="conceitual">Conceitual</option>
+            <option value="algébrico">Algébrico</option>
+            <option value="notacional">Notacional</option>
+            <option value="interpretação do enunciado">Interpretação do enunciado</option>
+            <option value="representação geométrica">Representação geométrica</option>
+          </select>
+        </label>
+        <label>Primeira divergência
+          <input id="error-note" type="text" placeholder="Onde seu raciocínio saiu do trilho?">
+        </label>
+        <button class="primary-action" type="submit">Registrar e encerrar</button>
+      </form>
+    </section>
+  </main>
+
+  <nav id="session-actions" class="fixed-action-bar" aria-label="Ações da sessão">
+    <div class="action-bar-inner">
+      <button id="hint-button" class="action-button" type="button" data-exam-help><span>◇</span>Dica</button>
+      <button id="reset-button" class="action-button" type="button" data-exam-help><span>↻</span>Reset</button>
+      <button id="open-tools" class="action-button" type="button"><span>⌁</span>Caderno</button>
+      <button id="open-review" class="action-button" type="button"><span>◎</span>Revisão</button>
+      <button id="reveal-answer" class="action-button primary-bar-action" type="button"><span>✓</span>Gabarito</button>
+    </div>
+  </nav>
+
+  <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+
+  <aside id="queue-drawer" class="drawer" hidden aria-label="Fila de exercícios">
+    <div class="drawer-head"><div><span class="drawer-kicker">FILA</span><h2>Próxima questão</h2></div><button type="button" data-close-drawer aria-label="Fechar">×</button></div>
+    <div class="drawer-filters">
+      <label>Fonte<select id="source-filter"><option value="all">Todas</option><option value="lista2">Lista 2 · Reta</option><option value="lista1">Lista 1 · Coordenadas</option></select></label>
+      <label>Tópico<select id="topic-filter"><option value="all">Todos</option></select></label>
+      <label>Status<select id="status-filter"><option value="all">Todos</option><option value="wrong">Erros</option><option value="unseen">Não tentadas</option><option value="helped">Acertos com ajuda</option><option value="mastered">Dominadas</option></select></label>
+    </div>
+    <div class="drawer-subhead"><span>prioridade</span><strong id="queue-count">79</strong></div>
+    <div id="queue-list" class="queue-list"></div>
+    <button id="next-priority" class="primary-action drawer-cta" type="button">Ir para próxima prioridade</button>
+  </aside>
+
+  <aside id="tools-drawer" class="drawer" hidden aria-label="Ferramentas do caderno">
+    <div class="drawer-head"><div><span class="drawer-kicker">CADERNO</span><h2>Ferramentas</h2></div><button type="button" data-close-drawer aria-label="Fechar">×</button></div>
+    <div class="formula-list">
+      <details open><summary>Distância entre pontos</summary><p>Δx_AB = x_B − x_A<br>Δy_AB = y_B − y_A<br>d(A,B) = √(Δx² + Δy²)</p></details>
+      <details><summary>Ponto médio</summary><p>M = ((x_A+x_B)/2, (y_A+y_B)/2)</p></details>
+      <details><summary>Reta</summary><p>Forma geral: Ax + By + C = 0.<br>Se Δx ≠ 0: m = Δy/Δx.<br>Ponto-inclinação: y − y₀ = m(x − x₀).</p></details>
+      <details><summary>Paralelismo / perpendicularidade</summary><p>Paralelas: m₁ = m₂.<br>Perpendiculares: m₁m₂ = −1, quando os coeficientes existem.</p></details>
+      <details><summary>Distância ponto-reta</summary><p>d(P,r) = |Ax₀ + By₀ + C| / √(A²+B²).</p></details>
+      <details><summary>Área / alinhamento</summary><p>Use o determinante dos três pontos. Determinante zero caracteriza alinhamento; a área do triângulo é metade do valor absoluto.</p></details>
+    </div>
+  </aside>
+
+  <aside id="review-drawer" class="drawer review-drawer" hidden aria-label="Revisão e progresso">
+    <div class="drawer-head"><div><span class="drawer-kicker">REVISÃO</span><h2>Depois do treino</h2></div><button type="button" data-close-drawer aria-label="Fechar">×</button></div>
+    <div class="review-metrics">
+      <div><strong id="overall-coverage">0%</strong><span>cobertura</span></div>
+      <div><strong id="overall-mastery">0%</strong><span>domínio</span></div>
+    </div>
+    <section><div class="drawer-subhead"><span>Mapa por tópico</span></div><div id="topic-stats" class="topic-stats"></div></section>
+    <section><div class="drawer-subhead"><span>Error Ledger</span><strong id="error-count">0</strong></div><div id="error-ledger" class="error-ledger"></div></section>
+  </aside>
+
+  <section id="reset-panel" class="focus-overlay" hidden data-exam-help aria-live="polite">
+    <div class="focus-dialog">
+      <button type="button" class="overlay-close" data-close-reset aria-label="Fechar reset">×</button>
+      <div id="reset-content"></div>
+    </div>
+  </section>
+
+  <section id="session-summary" class="focus-overlay" hidden aria-live="polite">
+    <div class="summary-card">
+      <p class="stage-kicker">FIM DO EXERCÍCIO</p>
+      <h2 id="summary-heading">Resumo</h2>
+      <dl class="summary-grid">
+        <div><dt>Conceito usado</dt><dd id="summary-concept">—</dd></div>
+        <div><dt>Insight central</dt><dd id="summary-insight">—</dd></div>
+        <div><dt>Erro para lembrar</dt><dd id="summary-error">—</dd></div>
+        <div><dt>Resultado</dt><dd id="summary-result">—</dd></div>
+        <div class="summary-note"><dt>Para o caderno</dt><dd id="summary-notebook">—</dd></div>
+      </dl>
+      <button id="summary-next" class="primary-action summary-next" type="button">Próxima questão →</button>
+    </div>
+  </section>
+
+  <footer class="minimal-footer">Fontes: Caderno Parrudo + Lista 1 + Lista 2 · progresso salvo localmente</footer>
+
+  <script src="src/source-meta.js"></script>
+  <script src="src/questions.js"></script>
+  <script src="src/core.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
