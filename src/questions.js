@@ -1,0 +1,1 @@
+(function(root){const all=root.GAQuestionParts||[]; function byId(id){return all.find(q=>q.id===id);} const topics=[...new Set(all.map(q=>q.topic))]; root.GAQuestions={all,byId,topics};})(window);
