@@ -98,6 +98,18 @@
         <span id="step-indicator">1 / 4</span>
         <button id="next-step" class="primary-action" type="button">continuar →</button>
       </div>
+
+      <div class="mobile-study-tools" aria-label="Ajuda da resolução">
+        <button id="hint-button-mobile" class="mobile-study-tool" type="button" data-exam-help>
+          <span aria-hidden="true">◇</span>Dica
+        </button>
+        <button id="reset-button-mobile" class="mobile-study-tool" type="button" data-exam-help>
+          <span aria-hidden="true">↻</span>Reset
+        </button>
+        <button id="reveal-answer-mobile" class="mobile-study-tool" type="button">
+          <span aria-hidden="true">✓</span>Gabarito
+        </button>
+      </div>
     </section>
 
     <section id="hint-panel" class="inline-feedback" hidden data-exam-help aria-live="polite"></section>
@@ -129,7 +141,7 @@
     </section>
   </main>
 
-  <nav id="session-actions" class="fixed-action-bar" aria-label="Ações da sessão">
+  <nav id="session-actions" class="fixed-action-bar desktop-action-bar" aria-label="Ações da sessão">
     <div class="action-bar-inner">
       <button id="hint-button" class="action-button" type="button" data-exam-help><span>◇</span>Dica</button>
       <button id="reset-button" class="action-button" type="button" data-exam-help><span>↻</span>Reset</button>
@@ -137,6 +149,25 @@
       <button id="open-review" class="action-button" type="button"><span>◎</span>Revisão</button>
       <button id="reveal-answer" class="action-button primary-bar-action" type="button"><span>✓</span>Gabarito</button>
     </div>
+  </nav>
+
+  <nav id="mobile-bottom-nav" class="mobile-bottom-nav" aria-label="Navegação principal">
+    <button id="nav-train-mobile" class="mobile-nav-item active" type="button" aria-current="page">
+      <span class="mobile-nav-icon" aria-hidden="true">◉</span>
+      <span>Treino</span>
+    </button>
+    <button id="open-review-mobile" class="mobile-nav-item" type="button">
+      <span class="mobile-nav-icon" aria-hidden="true">◎</span>
+      <span>Revisão</span>
+    </button>
+    <button id="open-tools-mobile" class="mobile-nav-item" type="button">
+      <span class="mobile-nav-icon" aria-hidden="true">⌁</span>
+      <span>Caderno</span>
+    </button>
+    <button id="mode-toggle-mobile" class="mobile-nav-item" type="button" aria-pressed="false">
+      <span class="mobile-nav-icon" aria-hidden="true">◇</span>
+      <span id="mode-label-mobile">Prova</span>
+    </button>
   </nav>
 
   <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
