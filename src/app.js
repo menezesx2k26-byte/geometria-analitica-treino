@@ -227,10 +227,15 @@
     document.body.classList.toggle('exam-mode', exam);
     $('mode-toggle').setAttribute('aria-pressed', String(exam));
     $('mode-label').textContent = exam ? 'Prova' : 'Estudo';
+    if ($('mode-toggle-mobile')) {
+      $('mode-toggle-mobile').setAttribute('aria-pressed', String(exam));
+      $('mode-toggle-mobile').classList.toggle('mode-active', exam);
+    }
     if (exam) {
       $('hint-panel').hidden = true;
       $('reset-panel').hidden = true;
     }
+    syncMobileNav();
   }
 
   function renderCountdown() {
@@ -251,10 +256,30 @@
     renderCountdown();
   }
 
+  function syncMobileNav(active) {
+    const items = {
+      train: $('nav-train-mobile'),
+      review: $('open-review-mobile'),
+      tools: $('open-tools-mobile'),
+      exam: $('mode-toggle-mobile'),
+    };
+    Object.values(items).forEach((button) => {
+      if (!button) return;
+      button.classList.remove('active');
+      button.removeAttribute('aria-current');
+    });
+    const resolved = active || (state.mode === 'exam' ? 'exam' : 'train');
+    if (items[resolved]) {
+      items[resolved].classList.add('active');
+      items[resolved].setAttribute('aria-current', 'page');
+    }
+  }
+
   function closeDrawers() {
     ['queue-drawer', 'tools-drawer', 'review-drawer'].forEach((id) => { $(id).hidden = true; });
     $('drawer-backdrop').hidden = true;
     document.body.classList.remove('drawer-open');
+    syncMobileNav();
   }
 
   function openDrawer(id) {
@@ -262,6 +287,8 @@
     $(id).hidden = false;
     $('drawer-backdrop').hidden = false;
     document.body.classList.add('drawer-open');
+    if (id === 'review-drawer') syncMobileNav('review');
+    else if (id === 'tools-drawer') syncMobileNav('tools');
     $(id).querySelector('button')?.focus();
   }
 
@@ -406,6 +433,9 @@
   $('hint-button').addEventListener('click', showHint);
   $('reset-button').addEventListener('click', showReset);
   $('reveal-answer').addEventListener('click', revealAnswer);
+  $('hint-button-mobile')?.addEventListener('click', showHint);
+  $('reset-button-mobile')?.addEventListener('click', showReset);
+  $('reveal-answer-mobile')?.addEventListener('click', revealAnswer);
   $('grade-correct').addEventListener('click', () => {
     finishAttempt(true);
     $('answer-panel').hidden = true;
@@ -425,15 +455,25 @@
     $('answer-panel').hidden = true;
   });
 
-  $('mode-toggle').addEventListener('click', () => {
+  function toggleMode() {
     state.mode = state.mode === 'exam' ? 'study' : 'exam';
     persist();
     renderMode();
-  });
+  }
+
+  $('mode-toggle').addEventListener('click', toggleMode);
+  $('mode-toggle-mobile')?.addEventListener('click', toggleMode);
 
   $('open-queue').addEventListener('click', () => openDrawer('queue-drawer'));
   $('open-tools').addEventListener('click', () => openDrawer('tools-drawer'));
   $('open-review').addEventListener('click', () => openDrawer('review-drawer'));
+  $('open-tools-mobile')?.addEventListener('click', () => openDrawer('tools-drawer'));
+  $('open-review-mobile')?.addEventListener('click', () => openDrawer('review-drawer'));
+  $('nav-train-mobile')?.addEventListener('click', () => {
+    closeDrawers();
+    syncMobileNav('train');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
   $('drawer-backdrop').addEventListener('click', closeDrawers);
   document.querySelectorAll('[data-close-drawer]').forEach((button) => button.addEventListener('click', closeDrawers));
   document.querySelector('[data-close-reset]').addEventListener('click', () => { $('reset-panel').hidden = true; });
