@@ -55,7 +55,7 @@ window.GAQuestionParts=(window.GAQuestionParts||[]).concat([
     "number": 26,
     "page": 4,
     "topic": "Distância entre dois pontos",
-    "statement": "(Uff) A palavra \"perímetro\"vem da combinação de dois elementos gregos: o primeiro, peri, significa "em torno de", e o segundo, metron, significa "medida". O perímetro do trapézio cujos vértices tem coordenadas (−1, 0), (9, 0), (8, 5) e (1, 5) é: √ √ √ a) 10 + 29 + 26 d) 17 + 2 26 √ √ b) 16 + 29 + 26 √ √ √ c) 22 + 26 e) 17 + 29 + 26",
+    "statement": "(Uff) A palavra \"perímetro\"vem da combinação de dois elementos gregos: o primeiro, peri, significa \"em torno de\", e o segundo, metron, significa \"medida\". O perímetro do trapézio cujos vértices tem coordenadas (−1, 0), (9, 0), (8, 5) e (1, 5) é: √ √ √ a) 10 + 29 + 26 d) 17 + 2 26 √ √ b) 16 + 29 + 26 √ √ √ c) 22 + 26 e) 17 + 29 + 26",
     "answer": "e",
     "answerNote": null
   },
